@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="vue.js"></script>
+  <style>
+    #tokoku{
+      background-color: aqua;
+      width: 100%;
+      height: 75px;
+    }
+    #app{
+      margin: 19px;
+    }
+    #app table tr td img{
+      width: 120px;
+      height: 100px;
+    }
+    #app table{
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header id="tokoku">
+  <h1 align="left">TokoKu</h1>
+  </header>
+  <div id="app" align="center"><hr/>
+    <h2 align="center">Cart({{ cart.length }})</h2><hr/>
+    <h2 align="center">Harga : Rp. {{ harga }}</h2>
+    <button type="submit" @click="bayar(i)">Bayar</button><hr/>
+    <table border="2">
+      <tr>
+        <td v-for="(product,i) in products" align="center">
+          <p>{{ product.id }}. Buku : {{ product.name }}<br /></p><hr/>
+          <img :src="product.img"/><br/><hr/>
+          <p>Harga : {{ product.price }}<br /></p>
+          <p>Stock : {{ product.stock }}<br /></p>
+          <button type="submit" @click="addToCart(i)">Add to Cart</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        name:'',
+        products:[
+          {
+            id:1,
+            name:"Aisar",
+            price:7000,
+            stock:201,
+            img:"img/aisar.jpg"
+          },
+          {
+            id:2,
+            name:"Aladdin",
+            price:48000,
+            stock:15,
+            img:"img/aladdin.jpg"
+          },
+          {
+            id:3,
+            name:"JS",
+            price:100000,
+            stock:10,
+            img:"img/js.jpg"
+          },
+          {
+            id:4,
+            name:"Paperline Book",
+            price:2000,
+            stock:202,
+            img:"img/paperline.jpg"
+          },
+          {
+            id:5,
+            name:"Ivana",
+            price:89000,
+            stock:15,
+            img:"img/ivana.jpg"
+          },
+          {
+            id:6,
+            name:"Di Ujung Tanduk",
+            price:67000,
+            stock:20,
+            img:"img/tanduk.jpg"
+          },
+          {
+            id:7,
+            name:"Hallowen",
+            price:150000,
+            stock:25,
+            img:"img/hallowen.jpg"
+          },
+          {
+            id:8,
+            name:"Peter",
+            price:89000,
+            stock:31,
+            img:"img/peter.jpg"
+          },
+          {
+            id:9,
+            name:"Asih",
+            price:230000,
+            stock:12,
+            img:"img/asih.jpg"
+          }
+        ],cart:[], harga: 0
+      },
+	  methods: {
+	  	  addToCart(i){
+
+          if(this.products[i].stock > 0) {
+            this.products[i].stock=this.products[i].stock-1;
+            this.harga=this.harga+this.products[i].price;
+            this.cart=this.cart+1;
+          }
+      		else{
+            alert("Sorry bro barangnya abis")
+          }
+	  },
+    bayar(i){
+      if (this.cart == 0){
+        alert("Pilih Dulu Lah Boy");
+      } else{
+      alert("Anda Akan Membeli Barang Sebanyak "+(this.cart.length)+", Dengan Harga Sebesar Rp. "+(this.harga)+"?")
+    }
+  }
+  }
+})
+  </script>
+</body>
+</html>
